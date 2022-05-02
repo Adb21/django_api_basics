@@ -16,10 +16,18 @@ Including another URLconf
 import imp
 from . import views
 from django.urls import path,include
+from rest_framework import routers
+
+
+router = routers.DefaultRouter()
+router.register(r'students', views.StudentViewSet)
+
 
 urlpatterns = [
-    path('', views.api_details,name='api_details'),
-    path('students/', views.students,name='students'),
-    path('students/<int:pk>', views.get_student,name='get_student'),
-    path('students/add', views.add_student,name='add_student'),
+    path('', include(router.urls)),
+
+    # path('', views.api_details,name='api_details'),
+    # path('students/', views.students,name='students'),
+    # path('students/<int:pk>', views.get_student,name='get_student'),
+    # path('students/add', views.add_student,name='add_student'),
 ]
