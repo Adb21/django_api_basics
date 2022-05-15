@@ -9,5 +9,3 @@ class Students(models.Model):
     last_name = models.CharField(max_length=30)
     marks = models.IntegerField(max_length=3)
     city = models.CharField(max_length=30)
-
-

@@ -7,6 +7,8 @@ from .serializers import StudentSerializer
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter,OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # Create your views here.
 class StudentViewSet(viewsets.ModelViewSet):
@@ -16,8 +18,9 @@ class StudentViewSet(viewsets.ModelViewSet):
     filterset_fields = ['city']
     search_fields = ['first_name', 'last_name','city']
     ordering_fields = ['first_name', 'last_name','marks']
-
-
+    throttle_scope = 'students'
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 # @api_view(['GET'])
 # def api_details(request):
