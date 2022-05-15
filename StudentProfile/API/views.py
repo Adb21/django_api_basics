@@ -5,12 +5,17 @@ from django.http import JsonResponse
 from .models import Students
 from .serializers import StudentSerializer
 from rest_framework import viewsets
-
+from rest_framework.filters import SearchFilter,OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Students.objects.all()
     serializer_class = StudentSerializer
+    filter_backends = [DjangoFilterBackend,SearchFilter,OrderingFilter]
+    filterset_fields = ['city']
+    search_fields = ['first_name', 'last_name','city']
+    ordering_fields = ['first_name', 'last_name','marks']
 
 
 
